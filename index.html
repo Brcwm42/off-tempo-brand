@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OFF-TEMPO 脫拍研製所 | Acoustic & Tactile Objects</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c0d0e;
+      --card-bg: #141618;
+      --border: #24272b;
+      --text-main: #f0f2f5;
+      --text-muted: #8a9099;
+      --accent: #d4a373;
+      --accent-glow: rgba(212, 163, 115, 0.15);
+      --font-mono: 'Space Grotesk', monospace;
+      --font-sans: 'Noto Sans TC', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2.5rem;
+      background: rgba(12, 13, 14, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand-logo {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      font-size: 1.15rem;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-family: var(--font-mono);
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    .hero {
+      min-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 4rem 1.5rem;
+      position: relative;
+      background: radial-gradient(circle at 50% 40%, var(--accent-glow) 0%, transparent 60%);
+    }
+
+    .tagline {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      max-width: 900px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      max-width: 600px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 0.85rem 1.75rem;
+      font-size: 0.9rem;
+      font-family: var(--font-mono);
+      border-radius: 4px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--text-main);
+      color: var(--bg);
+      border: 1px solid var(--text-main);
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      background: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-main);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .section-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem;
+    }
+
+    .section-header {
+      margin-bottom: 3.5rem;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      color: var(--accent);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .section-header h2 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(212, 163, 115, 0.4);
+      transform: translateY(-4px);
+    }
+
+    .card-num {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .product-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+    }
+
+    .interactive-player {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.25rem;
+    }
+
+    .player-dial {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px dashed var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .player-dial.active {
+      border-style: solid;
+      box-shadow: 0 0 20px var(--accent-glow);
+      transform: rotate(45deg);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 4rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer p {
+      font-family: var(--font-mono);
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="brand-logo">OFF-TEMPO</div>
+    <ul class="nav-links">
+      <li><a href="#about">概念</a></li>
+      <li><a href="#values">核心價值</a></li>
+      <li><a href="#products">硬體系列</a></li>
+      <li><a href="#listen">聲景體驗</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero">
+    <div class="tagline">Acoustic & Tactile Objects</div>
+    <h1>在失速的世界中<br>尋回脫拍的呼吸感</h1>
+    <p>我們是一個感官聲學與生活器物品牌，透過實體化聲音介質與觸覺設計，為數位過載的靈魂打造安穩的情緒微氣候。</p>
+    <div class="btn-group">
+      <button class="btn btn-primary" id="ambientToggle">體驗氛圍聲景</button>
+      <a href="#products" class="btn btn-secondary">瀏覽產品陣容</a>
+    </div>
+  </header>
+
+  <section class="section-container" id="about">
+    <div class="section-header">
+      <span class="section-label">01 / Concept</span>
+      <h2>為何而存在</h2>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-num">WHO</div>
+        <h3>為誰存在</h3>
+        <p>為長期處於資訊過載、身處多工壓力，並致力在數位雜訊中守護個人專注空間的創作者與生活者而設計。</p>
+      </div>
+      <div class="card">
+        <div class="card-num">WHAT</div>
+        <h3>提供什麼</h3>
+        <p>結合實體類比噪聲調諧器、純機械阻尼器物與實地收音磁帶，重拾雙手與真實物質的互動反饋。</p>
+      </div>
+      <div class="card">
+        <div class="card-num">WHY</div>
+        <h3>核心初衷</h3>
+        <p>當多數科技竭力替你提速，我們提供讓你安心減速的物理介質，在混亂演算法之外建立感官防空洞。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-container" id="values">
+    <div class="section-header">
+      <span class="section-label">02 / Values</span>
+      <h2>品牌價值信念</h2>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-num">01</div>
+        <h3>有機不完美</h3>
+        <p>擁抱類比聲音中的隨機抖動與微小雜質，拒絕被過度數位演算校準的生活表面。</p>
+      </div>
+      <div class="card">
+        <div class="card-num">02</div>
+        <h3>聽覺減法</h3>
+        <p>並非無差別消除一切，而是藉由溫暖低頻聲景中和尖銳雜音，撫平神經的過度反應。</p>
+      </div>
+      <div class="card">
+        <div class="card-num">03</div>
+        <h3>實體觸覺錨點</h3>
+        <p>捨棄發光觸控螢幕，回歸重磅鋁合金、實木與流暢物理旋鈕帶來的真實安定感。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-container" id="products">
+    <div class="section-header">
+      <span class="section-label">03 / Products</span>
+      <h2>日常器物</h2>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <span class="product-badge">HARDWARE</span>
+        <h3>Ambient Brick 伴生儀</h3>
+        <p>黑胡桃木與噴砂鋁合金桌面噪聲硬體，具備連續物理頻寬濾波與類比溫潤頻率輸出。</p>
+      </div>
+      <div class="card">
+        <span class="product-badge">TACTILE</span>
+        <h3>Tactile Dial 阻尼旋鈕</h3>
+        <p>無任何電路連接的極簡桌上機械組件。以精密液壓阻尼結構提供指尖穩定的物理反饋。</p>
+      </div>
+      <div class="card">
+        <span class="product-badge">SOUND ARCHIVE</span>
+        <h3>Analog Capsule 磁帶盒</h3>
+        <p>採集自清晨鐵道、深夜機房與暴雨屋簷的野外實地錄音，以 Type II 卡帶限量承載。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-container" id="listen">
+    <div class="interactive-player">
+      <div class="player-dial" id="dialBtn">OFF</div>
+      <h3>純類比頻率合成器</h3>
+      <p style="color: var(--text-muted); font-size: 0.9rem; max-width: 480px;">
+        點擊旋鈕啟動瀏覽器即時 Web Audio 棕色噪聲（Brownian Noise）引擎。戴上耳機，感受深沉包覆的聲學結界。
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 OFF-TEMPO LAB. ALL RIGHTS RESERVED.</p>
+  </footer>
+
+  <script>
+    let audioCtx = null;
+    let noiseNode = null;
+    let gainNode = null;
+    let isPlaying = false;
+
+    const dialBtn = document.getElementById('dialBtn');
+    const ambientToggle = document.getElementById('ambientToggle');
+
+    function toggleAudio() {
+      if (!isPlaying) {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        
+        const bufferSize = audioCtx.sampleRate * 2;
+        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        let lastOut = 0.0;
+
+        // 生成溫暖的 Brown Noise
+        for (let i = 0; i < bufferSize; i++) {
+          const white = Math.random() * 2 - 1;
+          output[i] = (lastOut + (0.02 * white)) / 1.02;
+          lastOut = output[i];
+          output[i] *= 3.5; 
+        }
+
+        noiseNode = audioCtx.createBufferSource();
+        noiseNode.buffer = noiseBuffer;
+        noiseNode.loop = true;
+
+        gainNode = audioCtx.createGain();
+        gainNode.gain.setValueAtTime(0.01, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.2, audioCtx.currentTime + 1.5);
+
+        noiseNode.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        noiseNode.start();
+
+        dialBtn.classList.add('active');
+        dialBtn.textContent = 'ON';
+        ambientToggle.textContent = '關閉聲景';
+        isPlaying = true;
+      } else {
+        if (gainNode) {
+          gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.8);
+          setTimeout(() => {
+            if (noiseNode) {
+              noiseNode.stop();
+              noiseNode.disconnect();
+            }
+          }, 800);
+        }
+        dialBtn.classList.remove('active');
+        dialBtn.textContent = 'OFF';
+        ambientToggle.textContent = '體驗氛圍聲景';
+        isPlaying = false;
+      }
+    }
+
+    dialBtn.addEventListener('click', toggleAudio);
+    ambientToggle.addEventListener('click', toggleAudio);
+  </script>
+</body>
+</html>
